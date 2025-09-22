@@ -24,7 +24,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'   # あなたのランタイムに合わせる
+          python-version: '3.12'
 
       # 依存を .python_packages に展開（Functions の既定パス）
       - name: Build (install dependencies)

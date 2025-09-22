@@ -1,1 +1,41 @@
+name: Deploy Azure Function (OIDC)
 
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure Login (OIDC)
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'   # あなたのランタイムに合わせる
+
+      # 依存を .python_packages に展開（Functions の既定パス）
+      - name: Build (install dependencies)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt --target ./.python_packages/lib/site-packages
+
+      # デプロイ
+      - name: Deploy to Azure Function
+        uses: Azure/functions-action@v1
+        with:
+          app-name: 'func-is-integrated-operations-api-dev-jpe-001'   # 既存の Function App 名
+          package: '.'                    # リポジトリのルート（host.json, function_app.py 等がある場所）
+          # slot-name: 'staging'          # スロット使うなら指定

@@ -1,0 +1,7 @@
+azure-functions
+azure-identity>=1.17.0
+requests>=2.31.0
+azure-mgmt-authorization>=4.0.0
+azure-mgmt-resource>=24.0.0
+msgraph-sdk>=1.40.0
+email-validator>=2.3.0

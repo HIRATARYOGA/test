@@ -23,9 +23,15 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install deps
+      # pytest は runner 環境にインストール
+      - name: Install test deps
         run: |
           python -m pip install --upgrade pip
+          pip install pytest
+
+      # Functions 本番用の依存は .python_packages に展開
+      - name: Install function deps
+        run: |
           pip install -r requirements.txt --target ./.python_packages/lib/site-packages
 
       - name: Run unit tests (optional)

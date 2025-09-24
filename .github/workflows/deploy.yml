@@ -34,7 +34,7 @@ jobs:
         run: |
           pip install -r requirements.txt --target ./.python_packages/lib/site-packages
 
-      # テストファイルがなかったらテストステップをスキップしたい
+      # テストファイルがなかったらテストステップをスキップ
       - name: Run unit tests (optional)
         run: |
           pytest -q || TEST_EXIT=$?

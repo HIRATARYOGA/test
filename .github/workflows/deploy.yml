@@ -34,9 +34,18 @@ jobs:
         run: |
           pip install -r requirements.txt --target ./.python_packages/lib/site-packages
 
+      # テストファイルがなかったらテストステップをスキップしたい
       - name: Run unit tests (optional)
         run: |
-          pytest -q || exit 1
+          pytest -q || TEST_EXIT=$?
+          if [ -z "$TEST_EXIT" ]; then
+            echo "All tests passed"
+          elif [ "$TEST_EXIT" -eq 5 ]; then
+            echo "No tests found, skipping..."
+          else
+            echo "Tests failed"
+            exit $TEST_EXIT
+          fi
 
       - name: Create deployment package
         run: |

@@ -5,3 +5,6 @@ azure-mgmt-authorization>=4.0.0
 azure-mgmt-resource>=24.0.0
 msgraph-sdk>=1.40.0
 email-validator>=2.3.0
+
+# --- テスト用、AIによるとファイルを分けた方がいいらしいけど一旦。 ---
+pytest>=7.0.0

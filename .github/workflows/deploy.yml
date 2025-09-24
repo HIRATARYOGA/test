@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 env:
-  APP_NAME: your-func-app-name
+  APP_NAME: func-is-integrated-operations-api-dev-jpe-001
 
 jobs:
   plan:
